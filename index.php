@@ -17,6 +17,20 @@ if (isset($_POST['search'])) {
     $stmt->execute();
     $searchResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+// Handle delete or update success/error messages
+$message = '';
+if (isset($_GET['delete'])) {
+    if ($_GET['delete'] == 'success') {
+        $message = "<p style='color: green;'>Record Deleted Successfully!</p>";
+    } elseif ($_GET['delete'] == 'error') {
+        $message = "<p style='color: red;'>Error: No record found to delete.</p>";
+    }
+} elseif (isset($_GET['update'])) {
+    if ($_GET['update'] == 'success') {
+        $message = "<p style='color: green;'>Record Updated Successfully!</p>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +42,17 @@ if (isset($_POST['search'])) {
 </head>
 <body>
     <h2>Welcome to the Student Management System</h2>
+
+    <!-- Display success or error message -->
+    <?php echo $message; ?>
+
     <a href="logout.php">Logout</a>
+    <br><br>
+
+   <!-- Button to go to Dashboard -->
+    <!-- <a href="dashboard.php">
+        <button type="button">Go to Dashboard</button>
+    </a> -->
 
     <!-- Search Form -->
     <form action="index.php" method="POST">
