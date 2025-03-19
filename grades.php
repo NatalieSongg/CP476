@@ -64,8 +64,8 @@ if (isset($_GET['id'])) {
                     <td>
                         <?php 
                             // Calculate final grade
-                            $finalGrade = ($grade['Grade1'] + $grade['Grade2'] + $grade['Grade3'] + $grade['Grade4']) / 4;
-                            echo round($finalGrade, 2); // Display rounded final grade
+                            $finalGrade = ($grade['Grade1'] * 0.20) + ($grade['Grade2'] * 0.20) + ($grade['Grade3'] * 0.20) + ($grade['Grade4'] * 0.40);
+                            echo number_format($finalGrade, 1); // Display final grade with one decimal place
                         ?>
                     </td>
                 </tr>
