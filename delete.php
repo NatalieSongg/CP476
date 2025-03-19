@@ -28,17 +28,15 @@ if (isset($_GET['id'])) {
         $stmtDelete->execute();
 
         // Redirect back to the dashboard with a success message
-        header("Location: dashboard.php?delete=success");
+        header("Location: index.php?delete=success");
         exit();
     } else {
         // Redirect with an error message if the student is not found
-        header("Location: dashboard.php?delete=error");
+        header("Location: index.php?delete=error");
         exit();
     }
 } else {
     // Redirect with an error message if no ID is passed
-    header("Location: dashboard.php?delete=error");
+    header("Location: index.php?delete=error");
     exit();
 }
-
-
