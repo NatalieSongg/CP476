@@ -37,18 +37,23 @@ if (isset($_GET['id'])) {
 
 // Handle the form submission for the update
 if (isset($_POST['update_student'])) {
-    $studentId = $_POST['student_id'];
-    $updatedName = $_POST['name'];
+    $studentId = $_POST['student_id'];  // New Student ID
+    $updatedName = $_POST['name'];  // Updated Name
 
     // Prepare and execute the UPDATE query, updating both student name and student number (ID)
-    $stmt = $conn->prepare("UPDATE `NameTable` SET `StudentID` = :studentId, `StudentName` = :name WHERE `StudentID` = :originalStudentId");
-    $stmt->bindParam(':studentId', $studentId); // Updated student ID
-    $stmt->bindParam(':name', $updatedName);
-    $stmt->bindParam(':originalStudentId', $_POST['student_id']); // The original student ID (for reference in the WHERE clause)
-    $stmt->execute();
+    try {
+        // Update the StudentName and StudentID
+        $stmt = $conn->prepare("UPDATE `NameTable` SET `StudentID` = :studentId, `StudentName` = :name WHERE `StudentID` = :originalStudentId");
+        $stmt->bindParam(':studentId', $studentId); // Updated student ID
+        $stmt->bindParam(':name', $updatedName);
+        $stmt->bindParam(':originalStudentId', $_POST['student_id']); // The original student ID (for reference in the WHERE clause)
+        $stmt->execute();
 
-    // Redirect back to dashboard after successful update
-    header("Location: dashboard.php?update=success");
-    exit();
+        // Redirect back to dashboard after successful update
+        header("Location: index.php?update=success");
+        exit();
+    } catch (PDOException $e) {
+        echo "Error updating record: " . $e->getMessage();
+    }
 }
 ?>
